@@ -40,3 +40,29 @@ var postorderTraversal = function(root) {
     }
     return ans
 };
+
+
+
+
+// one stack 
+
+var postorderTraversal = function(root) {
+    let stack = [];
+    let curr = root;
+    let ans = [];
+    let lastVisited = null;
+    while(curr || stack.length) {
+        while(curr) {
+            stack.push(curr);
+            curr = curr.left;
+        }
+        let peek = stack[stack.length - 1];
+        if(peek.right && peek.right != lastVisited){
+            curr = peek.right;
+        } else {
+            ans.push(peek.val);
+            lastVisited = stack.pop();
+        }
+    }
+    return ans;
+};

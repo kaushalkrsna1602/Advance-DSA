@@ -35,3 +35,24 @@ def postorderTraversal(root):
     while s2:
         ans.append(s2.pop().val)
     return ans
+
+
+#one stack 
+
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        stack = []
+        curr = root
+        ans = []
+        lastVisited = None
+        while curr or len(stack):
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            peek = stack[len(stack) - 1]
+            if peek.right and peek.right != lastVisited:
+                curr = peek.right
+            else:
+                ans.append(peek.val)
+                lastVisited = stack.pop()
+        return ans

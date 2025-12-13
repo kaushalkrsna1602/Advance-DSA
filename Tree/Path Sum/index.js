@@ -37,3 +37,35 @@ var hasPathSum2 = function(root, targetSum) {
 
     return false;
 };
+
+
+var hasPathSum3 = function(root, targetSum) {
+    if (root === null) {
+        return false;
+    }
+
+    let ans = false;
+
+    function traverse(curr, currSum) {
+        if (curr === null || ans) return;
+
+        const newSum = currSum + curr.val;
+
+        if (curr.left === null && curr.right === null) {
+            if (newSum === targetSum) {
+                ans = true;
+                return;
+            }
+        }
+
+        if (curr.left !== null) {
+            traverse(curr.left, newSum);
+        }
+        if (curr.right !== null) {
+            traverse(curr.right, newSum);
+        }
+    }
+
+    traverse(root, 0);
+    return ans;
+};
